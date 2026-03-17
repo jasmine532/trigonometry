@@ -18,7 +18,7 @@
 }
 
 /* LIGHT MODE */
-.light {
+html.light {
     --bg: #d4c5aa;
     --card-bg: #886c5f;
     --text: #d4c5aa;
@@ -29,7 +29,7 @@
 }
 
 /* DARK MODE */
-.dark {
+html.dark {
     --title: #dfb24a;
     --bg: #1f1f1f;
     --card-bg: #484343;
@@ -245,11 +245,9 @@ body {
 }
 </style>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      document.body.classList.add(localStorage.getItem('theme') || 'dark');
-    });
-  </script>
+<script>
+  document.documentElement.classList.add(localStorage.getItem('theme') || 'dark');
+</script>
     
 </head>
 
