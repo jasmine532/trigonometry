@@ -15,7 +15,7 @@
 }
 
 /* LIGHT MODE */
-.light {
+html.light {
     --bg: #d4c5aa;
     --text: #000000;
     --title: #886c5f;
@@ -25,7 +25,7 @@
 }
 
 /* DARK MODE */
-.dark {
+html.dark {
     --bg: #1f1f1f;
     --text: #e6e6e6;
     --subtext: #dfb24a;
@@ -279,12 +279,10 @@ html, body {
 .show { display: block; }
 </style>
 
-      <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      document.body.classList.add(localStorage.getItem('theme') || 'dark');
-    });
-  </script>
-
+<script>
+  document.documentElement.classList.add(localStorage.getItem('theme') || 'dark');
+</script>
+    
 </head>
 
 <body>
