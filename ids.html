@@ -278,6 +278,13 @@ html, body {
 
 .show { display: block; }
 </style>
+
+      <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      document.body.classList.add(localStorage.getItem('theme') || 'dark');
+    });
+  </script>
+
 </head>
 
 <body>
@@ -461,7 +468,6 @@ html, body {
 </div>
 
 <script>
-  document.body.classList.add(localStorage.getItem('theme') || 'dark');
 function toggleTheme() {
   document.body.classList.toggle("light");
   document.body.classList.toggle("dark");
