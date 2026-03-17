@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="trig.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<style>
+
+.light{
+  --bg: #d4c5aa;
+  --text-main: #d04b18;
+  --text-soft: #675a4c;
+  --title: #886c5f;
+  --button-bg: #8b7b6a;
+  --button-text: #d4c5aa;
+  --menu: #242726;
+  --settings: #242726;
+}
+
+.dark{
+  --bg: #1c1c1c;
+  --text-main: #dfb24a;
+  --text-soft: #c2b7a6;
+  --title: #f1e6d0;
+  --button-bg: #3a3a3a;
+  --button-text: #f1e6d0;
+  --menu: #f1e6d0;
+  --settings: #f1e6d0;
+}
+
+
+body {
+  background-color: var(--bg);
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  color: var(--text-main);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+html { 
+  scroll-behavior:smooth; 
+}
+
+@font-face { font-family: vogue; src: url('Vogue.ttf');} 
+@font-face { font-family: crimsonpro; src: url('CrimsonPro-VariableFont_wght.ttf');} 
+
+#title{
+  position: absolute;
+  top: 15%;
+    text-align: center;
+    width: 100%;
+    font-size: 40px;
+    font-weight: 600;
+    color: var(--title);
+    letter-spacing: 1px;
+    font-family: 'vogue';
+}
+
+.bigbox {
+  width: 90%;
+  padding: 100px 20px;
+  margin-top: 90px;
+  text-align: center;
+  scale: 96%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 60px 4px;
+}
+
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+}
+
+.question-box {
+  padding: 20px 28px;
+  border-radius: 12px;
+  text-align: center;
+  transition: transform 0.2s ease;
+  font-family: crimsonpro;
+  color: var(--text-soft);
+}
+
+.question-box h3 {
+  margin: 0 0 18px 0;
+  font-size: 15px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: crimsonpro;
+  color: var(--text-main);
+}
+
+button {
+  background-color: var(--button-bg);
+  border: none;
+  padding: 6px 10px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--button-text);
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: crimsonpro;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.answer {
+  display: none;
+  margin-top: 20px;
+  color: var(--text-main);
+  font-size: 16px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  letter-spacing: 1px;
+  font-weight: 440;
+}
+
+.equation {
+  border-collapse: collapse;
+  margin: 0 auto;
+  color: var(--text-soft);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  justify-self: center;
+}
+
+.fraction {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 1;
+}
+
+.num {
+  display: block;
+  border-bottom: 1px solid;
+  font-size: 1em;
+}
+
+.denom {
+  display: block;
+  border-top: 1px solid;
+}
+
+.settings-btn {
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: var(--title);
+  transition: 0.4s;;
+  position: fixed;
+  top: -1px;
+  right: 56px;
+
+}
+
+.container {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 25px;
+    height: 3.5px;
+    background-color: var(--title);
+    margin: 4px 0;
+    transition: 0.4s;
+}
+
+.change .bar1 { transform: translate(0, 7.5px) rotate(-45deg); }
+.change .bar2 { opacity: 0; }
+.change .bar3 { transform: translate(0, -7.5px) rotate(45deg); }
+
+.dropdown { position: relative; }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background-color: var(--bg);
+    min-width: 160px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 12px 5px;
+    text-decoration: none;
+    color: var(--menu);
+    text-align: right;
+}
+
+.top-right {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  color: var(--title);
+  z-index: 1000;
+}
+
+.show { display: block; }
+
+</style>
+<body class="dark">
+<div class="top-right">
+  <button class="settings-btn" onclick="toggleTheme()">&#9881;</button>
+  <div class="dropdown">
+    <div class="container" onclick="toggleMenu(this)">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+    </div>
+    <div id="myDropdown" class="dropdown-content">
+      <a href="actualhomepage.html">home</a>
+      <a href="flashy.html">flashcards</a>
+      <a href="ids.html">ids</a>
+      <a href="trig.html">practice</a>
+    </div>
+  </div>
+</div>
+
+<div id="title">practice</div>
+
+<div class="bigbox">
+  <div class="grid">
+    <div class="question-box">
+      <h3> QUESTION 1</h3>
+<div class="equation">
+Find sin(x − <span class="fraction">
+  <span class="num">π</span>
+  <span class="denom">2</span>
+</span> ) if cos x = 0.65
+</div>
+<button onclick="toggleanswer(this)">click to reveal answer</button>
+<div class="answer">
+<p>= -0.65 </p>
+</div>
+</div>
+    <div class="question-box">
+  <h3> QUESTION 2</h3>
+  <div class="equation">
+    Find the exact value of tan 
+    <span class="fraction">
+      <span class="num">23π</span>
+      <span class="denom">12</span>
+</span>
+  </div>
+  <button onclick="toggleanswer(this)">click to reveal answer</button>
+  <div class="answer">
+    <p>=-2+√3</p>
+  </div>
+</div>
+    <div class="question-box">
+  <h3> QUESTION 3</h3>
+  <div class="equation">
+    Find the exact value of cos(
+    −<span class="fraction">
+      <span class="num">13π</span>
+      <span class="denom">12</span>
+    </span>)
+  </div>
+  <button onclick="toggleanswer(this)">click to reveal answer</button>
+  <div class="answer">
+  <p>= <span class="fraction">
+        <span class="num">√6-√2</span>
+        <span class="denom">4</span>
+  </span>
+  </p>
+  </div>
+</div>
+    <div class="question-box">
+  <h3> QUESTION 4</h3>
+  <p>Find the exact value</p>
+  <div class="equation">
+    sin 
+    <span class="fraction">
+      <span class="num">5π</span>
+      <span class="denom">4</span>
+    </span>
+    × cos
+    <span class="fraction">
+      <span class="num">π</span>
+      <span class="denom">12</span>
+    </span>
+  </div>
+  <button onclick="toggleanswer(this)">click to reveal answer</button>
+  <div class="answer">
+  <p>= <span class="fraction">
+        <span class="num">-1-√3</span>
+        <span class="denom">4</span>
+  </span>
+  </p>  </div>
+</div>
+    <div class="question-box">
+  <h3> QUESTION 5</h3>
+  <p>Find the exact value of cos 2θ</p>
+  <div class="equation">
+    If tan x &gt; 
+    <span class="fraction">
+      <span class="num">√2</span>
+      <span class="denom">5</span>
+    </span>
+    and π &lt; x &lt; 
+    <span class="fraction">
+      <span class="num">3π</span>
+      <span class="denom">2</span>
+    </span>
+  </div>
+
+  <button onclick="toggleanswer(this)">click to reveal answer</button>
+  <div class="answer">
+  <p>= <span class="fraction">
+        <span class="num">23</span>
+        <span class="denom">24</span>
+  </span>
+  </p>  </div>
+
+</div>
+    <div class="question-box">
+  <h3> QUESTION 6</h3>
+
+  <p>Simplify the trigonometric expression</p>
+
+  <div class="equation">
+    secθ − 
+    <span class="fraction">
+      <span class="num">cosθ</span>
+      <span class="denom">sinθ + 1</span>
+    </span>
+  </div>
+
+  <button onclick="toggleanswer(this)">click to reveal answer</button>
+
+  <div class="answer">
+  <p>= tanθ</p></div>
+
+</div>
+    <div class="question-box">
+  <h3> QUESTION 7</h3>
+
+  <p>Simplify the trigonometric expression</p>
+
+  <div class="equation">
+    <span class="fraction">
+      <span class="num">cot y − sec y · csc y</span>
+      <span class="denom">tan y + cot y</span>
+    </span>
+  </div>
+
+  <button onclick="toggleanswer(this)">click to reveal answer</button>
+
+  <div class="answer">
+  <p>= -sin<sup>2</sup>y
+  </p>  </div>
+
+</div>
+    <div class="question-box">
+  <h3> QUESTION 8</h3>
+
+  <p>Verify the trigonometric identity</p>
+
+  <div class="equation">
+    cos α − tan α · cos(
+    <span class="fraction">
+      <span class="num">3π</span>
+      <span class="denom">2</span>
+    </span>
+    − α) = sec α
+  </div>
+
+  <button onclick="toggleanswer(this)">click to reveal answer</button>
+
+  <div class="answer">
+  <p>secα =cosα - tanα [cos<span class="fraction">
+        <span class="num">3π</span>
+        <span class="denom">2</span>
+  </span> · cosα + sin<span class="fraction">
+        <span class="num">3π</span>
+        <span class="denom">2</span>
+  </span> · sinα]
+  </p>  
+<p>=cosα - tanα[0·cosα + (-1)sinα]</p>
+<p>=cosα - tanα[-sinα]</p>
+<p>=cosα +<span class="fraction">
+        <span class="num">sinα</span>
+        <span class="denom">cosα</span>
+  </span> · <span class="fraction">
+        <span class="num">sinα</span>
+        <span class="denom">1</span>
+  </span>
+  </p>  
+<p><span class="fraction">
+        <span class="num">cos<sup>2</sup>α + sin<sup>2</sup>α</span>
+        <span class="denom">cosα</span>
+  </span>
+  </p>  
+<p><span class="fraction">
+        <span class="num">1</span>
+        <span class="denom">cosα</span>
+  </span>
+  </p>  
+<p>secα = secα</p>
+</div>
+</div>
+    <div class="question-box">
+  <h3> QUESTION 9</h3>
+
+  <p>Verify the trigonometric identity</p>
+
+  <div class="equation">
+    <span class="fraction">
+      <span class="num">2</span>
+      <span class="denom">1 + sin θ</span>
+    </span>
+    = (sec θ − tan θ)<sup>2</sup> + 1
+  </div>
+
+  <button onclick="toggleanswer(this)">click to reveal answer</button>
+
+  <div class="answer">
+  <p>=(<span class="fraction">
+        <span class="num">1</span>
+        <span class="denom">cosθ</span>
+  </span> - <span class="fraction">
+        <span class="num">sinθ</span>
+        <span class="denom">cosθ</span>
+  </span>)<sup>2</sup> +1</p>  
+  <p>=(<span class="fraction">
+        <span class="num">1-sinθ</span>
+        <span class="denom">cosθ</span>
+  </span>)<sup>2</sup> +1</p>
+  <p>=<span class="fraction">
+        <span class="num">1-2sinθ+sin<sup>2</sup>θ</span>
+        <span class="denom">cos<sup></sup>θ</span>
+  </span> + <span class="fraction">
+        <span class="num">cosθ</span>
+        <span class="denom">cosθ</span>
+  </span></p>
+  <p>=<span class="fraction">
+        <span class="num">1-2sinθ+sin<sup>2</sup>+cos<sup>2</sup>θ</span>
+        <span class="denom">cos<sup>2</sup>θ</span>
+  </span></p>
+  <p>=<span class="fraction">
+        <span class="num">1-2sinθ+1</span>
+        <span class="denom">cos<sup>2</sup>θ</span>
+  </span></p>
+  <p>=<span class="fraction">
+        <span class="num">2-2sinθ</span>
+        <span class="denom">cos<sup>2</sup>θ</span>
+  </span></p>
+  <p>=<span class="fraction">
+        <span class="num">2(1-sinθ)</span>
+        <span class="denom">1-sin<sup>2</sup>θ</span>
+  </span></p>
+  <p>=<span class="fraction">
+        <span class="num">2(1-sinθ)</span>
+        <span class="denom">(1+sinθ)(1-sinθ)</span>
+  </span></p>
+<p><span class="fraction">
+        <span class="num">2</span>
+        <span class="denom">1+sinθ</span>
+  </span> = <span class="fraction">
+        <span class="num">2</span>
+        <span class="denom">1+sinθ</span>
+  </span></p>
+</div>
+
+</div>
+    <div class="question-box">
+  <h3> QUESTION 10</h3>
+
+  <p>Solve for all solutions in [π, 2π]</p>
+
+  <div class="equation">
+    sec<sup>2</sup>x =
+    <span class="fraction">
+      <span class="num">1</span>
+      <span class="denom">2</span>
+    </span>
+    csc<sup>2</sup>x + tan<sup>2</sup>x
+  </div>
+
+  <button onclick="toggleanswer(this)">click to reveal answer</button>
+
+  <div class="answer">
+  <p>x= <span class="fraction">
+        <span class="num">5π</span>
+        <span class="denom">4</span>
+  </span> , <span class="fraction">
+        <span class="num">7π</span>
+        <span class="denom">4</span>
+  </span>
+  </p>  </div>
+
+</div>    
+    <div class="question-box">
+  <h3> QUESTION 11</h3>
+
+  <p>Solve for all solutions in 
+    [
+    <span class="fraction">
+      <span class="num">π</span>
+      <span class="denom">2</span>
+    </span>
+    , π]
+  </p>
+
+  <div class="equation">
+    tan<sup>4</sup>x + 1 = 4tan<sup>2</sup>x − 2
+  </div>
+
+  <button onclick="toggleanswer(this)">click to reveal answer</button>
+
+  <div class="answer">
+  <p>x= <span class="fraction">
+        <span class="num">3π</span>
+        <span class="denom">4</span>
+  </span> , <span class="fraction">
+        <span class="num">2π</span>
+        <span class="denom">3</span>
+  </span>
+  </p>  </div>
+
+</div>    
+    <div class="question-box">
+  <h3> QUESTION 12</h3>
+
+  <p>Solve for all solutions in [0, 2π]</p>
+
+  <div class="equation">
+    cos A · (tan A · csc A)<sup>2</sup> − 1 = 4 cos A
+  </div>
+
+  <button onclick="toggleanswer(this)">click to reveal answer</button>
+
+  <div class="answer">
+  <p>x= <span class="fraction">
+        <span class="num">π</span>
+        <span class="denom">3</span>
+  </span> , π , <span class="fraction">
+        <span class="num">5π</span>
+        <span class="denom">3</span>
+  </span>
+  </p>  </div>
+  </div>
+
+</div>
+
+<script>
+  function toggleanswer(button) {
+    const answer = button.nextElementSibling;
+
+    if (answer.style.display === "block") {
+      answer.style.display = "none";
+      button.textContent = "click to reveal answer";
+    } else {
+      answer.style.display = "block";
+      button.textContent = "hide answer";
+    }
+  }
+
+  /* Theme Toggle */
+function toggleTheme() {
+  document.body.classList.toggle("light");
+  document.body.classList.toggle("dark");
+}
+
+/* Menu Icon Animation + Dropdown */
+function toggleMenu(x) {
+  x.classList.toggle("change");
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+/* Close dropdown on outside click */
+window.onclick = function(event) {
+  if (!event.target.closest('.dropdown')) {
+    const dropdown = document.getElementById("myDropdown");
+    dropdown.classList.remove("show");
+  }
+};
+</script>
+</body>
+</html>
+
+

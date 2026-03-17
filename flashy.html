@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>flashy</title>
+
+<style>
+/* FONT IMPORTS */
+@font-face {
+    font-family: 'vogue';
+    src: url('Vogue 3.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'crimsonpro';
+    src: url('CrimsonPro-VariableFont_wght.ttf') format('truetype');
+}
+
+/* LIGHT MODE */
+.light {
+    --bg: #d4c5aa;
+    --card-bg: #886c5f;
+    --text: #d4c5aa;
+    --title: #886c5f;
+    --arrow: #886c5f;
+    --settings: #886c5f;
+    --menu: #886c5f;
+}
+
+/* DARK MODE */
+.dark {
+    --title: #dfb24a;
+    --bg: #1f1f1f;
+    --card-bg: #484343;
+    --text: #e6e6e6;
+    --arrow: #e6e6e6;
+    --settings: #e6e6e6;
+    --menu: #e6e6e6;
+}
+
+/* BODY */
+body {
+    background: var(--bg);
+    margin: 0;
+    min-height: 100vh;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* TITLE */
+.title {
+    text-align: center;
+    font-size: clamp(24px, 5vw, 40px);
+    font-weight: 600;
+    color: var(--title);
+    letter-spacing: 0.1em;
+    font-family: 'vogue';
+    margin-bottom: 5vh;
+    max-width: 90%;
+}
+
+/* FLASHCARD AREA */
+.flashcard-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2rem, 5vw, 6rem);
+    width: 90%;
+    max-width: 1000px;
+    position: relative;
+    margin-bottom: 5vh;
+}
+
+/* FLASHCARD */
+.card {
+    width: min(70vw, 460px);
+    height: min(45vw, 260px);
+    perspective: 1200px;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    font-family: 'crimsonpro';
+    position: relative;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s;
+    transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* CARD SIDES */
+.side {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--card-bg);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+    border-radius: 3px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+.front {
+    font-size: clamp(20px, 6vw, 40px);
+    font-weight: 700;
+}
+
+.back {
+    font-size: clamp(14px, 4vw, 26px);
+    transform: rotateY(180deg);
+}
+
+/* ARROWS */
+.arrow {
+    width: 0;
+    height: 0;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 3vh solid transparent;
+    border-bottom: 3vh solid transparent;
+}
+
+#left {
+    left: 5%;
+    border-right: 4vw solid var(--arrow);
+}
+
+#right {
+    right: 5%;
+    border-left: 4vw solid var(--arrow);
+}
+
+/* SETTINGS BUTTON */
+.top-right {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+/* Settings */
+.settings-btn {
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: var(--menu);
+  transition: 0.4s;
+  position: fixed;
+  top: 14px;
+  right: 60px;
+}
+
+/* menu icon */
+  .container {
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .bar1, .bar2, .bar3 {
+    width: 25px;
+    height: 3.5px;
+    background-color: var(--menu);
+    margin: 4px 0;
+    transition: 0.4s;
+  }
+
+  .change .bar1 {
+    transform: translate(0, 7.5px) rotate(-45deg);
+  }
+
+  .change .bar2 {
+    opacity: 0;
+  }
+
+  .change .bar3 {
+    transform: translate(0, -7.5px) rotate(45deg);
+  }
+
+/* Dropdown */
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background-color: var(--bg);
+    min-width: 160px;
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    display: block;
+    padding: 12px 5px;
+    text-decoration: none;
+    color: var(--menu);
+    text-align: right;
+  }
+
+  .show {
+    display: block;
+  }
+
+@media (max-width: 800px) {
+    #left { left: 4%; }
+    #right { right: 4%; }
+}
+
+@media (max-width: 600px) {
+    .title { font-size: clamp(20px, 8vw, 32px); margin-bottom: 4vh; }
+    .flashcard-area { flex-direction: column; gap: 2vh; }
+    #left, #right {
+        position: relative;
+        top: 0;
+        transform: none;
+        border-top-width: 2.5vh;
+        border-bottom-width: 2.5vh;
+        border-left-width: 3vw;
+        border-right-width: 3vw;
+    }
+    #left { left: 0; border-right-color: var(--arrow); }
+    #right { right: 0; border-left-color: var(--arrow); }
+}
+</style>
+
+</head>
+
+<body class="dark">
+
+<div class="top-right">
+  <!-- settings -->
+  <button class="settings-btn" onclick="toggleTheme()">⚙</button>
+
+  <!-- menu -->
+  <div class="dropdown">
+    <div class="container" onclick="toggleMenu(this)">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+    </div>
+
+    <div id="myDropdown" class="dropdown-content">
+      <a href="actualhomepage.html">home</a>
+      <a href="flashy.html">flashcards</a>
+      <a href="ids.html">ids</a>
+      <a href="trig.html">practice</a>
+    </div>
+  </div>
+</div>
+
+<!-- switch to class="dark" for dark mode -->
+
+<div class="title">FLASHCARDS</div>
+
+<div class="flashcard-area">
+
+<div class="arrow" id="left" onclick="prev()"></div>
+
+<div class="card" id="card" onclick="flip()">
+    <div class="card-inner">
+        <div class="side front" id="front"></div>
+        <div class="side back" id="back"></div>
+    </div>
+</div>
+<div class="arrow" id="right" onclick="next()"></div>
+</div>
+
+
+<script>
+/* VOCAB DATA */
+const vocab = [
+  { front: "sin", back: "opposite / hypotenuse" },
+  { front: "cos", back: "adjacent / hypotenuse" },
+  { front: "tan", back: "opposite / adjacent" },
+  { front: "csc", back: "1 / sin" },
+  { front: "sec", back: "1 / cos" },
+  { front: "cot", back: "1 / tan" },
+  { front: "π", back: "180°" },
+  { front: "θ", back: "angle variable" },
+  { front: "radians", back: "a unit of angular measure used in mathematics, defined as the angle created when the arc length of a circle equals its radius" }
+];
+
+// set variables
+let index = 0;
+const card = document.getElementById("card");
+const front = document.getElementById("front");
+const back = document.getElementById("back");
+
+function render() {
+    front.textContent = vocab[index].front;
+    back.textContent = vocab[index].back;
+    card.classList.remove("flipped");
+}
+
+render();
+
+/* NAVIGATION */
+function next() {
+    card.style.opacity = 0;
+    setTimeout(() => {
+        index = (index + 1) % vocab.length;
+        render();
+        card.style.opacity = 1;
+    }, 250);
+}
+
+function prev() {
+    card.style.opacity = 0;
+    setTimeout(() => {
+        index = (index - 1 + vocab.length) % vocab.length;
+        render();
+        card.style.opacity = 1;
+    }, 250);
+}
+
+function flip() {
+    card.classList.toggle("flipped");
+}
+
+  /* Theme Toggle */
+function toggleTheme() {
+  document.body.classList.toggle("light");
+  document.body.classList.toggle("dark");
+}
+
+/* Menu Icon Animation + Dropdown */
+function toggleMenu(x) {
+  x.classList.toggle("change");
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+/* Close dropdown on outside click */
+window.onclick = function(event) {
+  if (!event.target.closest('.dropdown')) {
+    const dropdown = document.getElementById("myDropdown");
+    dropdown.classList.remove("show");
+  }
+};
+
+</script>
+
+</body>
+</html>

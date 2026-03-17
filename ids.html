@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ids</title>
+<style>
+    @font-face {
+    font-family: 'vogue';
+    src: url('Vogue 3.ttf'), format('ttf');
+}
+
+@font-face {
+    font-family: 'crimsonpro';
+    src: url('CrimsonPro-VariableFont_wght.ttf'), format('ttf');
+}
+
+/* LIGHT MODE */
+.light {
+    --bg: #d4c5aa;
+    --text: #000000;
+    --title: #886c5f;
+    --subtext: #d04b18;
+    --settings: #886c5f;
+    --menu: #886c5f;
+}
+
+/* DARK MODE */
+.dark {
+    --bg: #1f1f1f;
+    --text: #e6e6e6;
+    --subtext: #dfb24a;
+    --title: #e6e6e6;
+    --settings: #e6e6e6;
+    --menu: #e6e6e6;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: var(--bg);
+    font-family: sans-serif;
+}
+
+#page-wrapper {
+    width: 1440px;
+    transform-origin: top left;
+    background: var(--bg);
+    position: relative; 
+}
+
+.title {
+    position: absolute;
+    top: 120px;
+    text-align: center;
+    width: 100%;
+    font-size: 40px;
+    font-weight: 600;
+    color: var(--title);
+    letter-spacing: 1px;
+    font-family: 'vogue';
+}
+
+.subtext {
+    position: absolute;
+    font-size: 23px;
+    color: var(--subtext);
+    letter-spacing: 1px;
+    font-family: 'crimsonpro';
+    font-weight: bold;
+}
+
+.recip      { top: 240px;  left: 317px; }
+.pythag     { top: 240px;  left: 835px; }
+.cofunc     { top: 540px;  left: 317px; }
+.evenodd    { top: 540px;  left: 857px; }
+.sumangles  { top: 840px; left: 302px; }
+.diffangles { top: 840px; left: 792px; }
+.doubangles { top: 1140px; left: 302px; }
+.halfangles { top: 1140px; left: 864px; }
+.powerredu  { top: 1480px; text-align: center; width: 100%; }
+.protosum   { top: 1740px; left: 288px; }
+.sumtopro   { top: 1740px; left: 849px; }
+
+.fraction {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 1;
+}
+.num {
+  display: block;
+  border-bottom: 1px solid;
+  font-size: 1em;
+}
+.denom {
+  display: block;
+  border-top: 1px solid;
+}
+
+.space {
+    color: var(--bg);
+    font-size: 5px;
+}
+
+.reciptb {
+    font-family: 'crimsonpro';
+    color: var(--text);
+    border-collapse: separate;
+    position: absolute;
+    top: 300px;
+    left: 288px;
+}
+    .reciptb td:nth-child(2n) { padding-right: 35px; }
+
+.pythagtb {
+    font-family: 'crimsonpro';
+    color: var(--text);
+    border-collapse: separate;
+    position: absolute;
+    top: 300px;
+    left: 922px;
+    text-align: center;
+}
+
+.cofunctb {
+    font-family: 'crimsonpro';
+    border-collapse: separate;
+    color: var(--text);
+    position: absolute;
+    top: 600px;
+    left: 238px;
+}
+    .cofunctb td:nth-child(3n) { padding-right: 35px; }
+
+.evenoddtb {
+    font-family: 'crimsonpro';
+    border-collapse: separate;
+    color: var(--text);
+    position: absolute;
+    top: 600px;
+    left: 814px;
+}
+    .evenoddtb td:nth-child(n) { padding-right: 35px; }
+
+.sumanglestb {
+    font-family: 'crimsonpro';
+    text-align: center;
+    color: var(--text);
+    position: absolute;
+    top: 900px;
+    left: 331px;
+}
+
+.diffanglestb {
+    text-align: center;
+    font-family: 'crimsonpro';
+    color: var(--text);
+    position: absolute;
+    top: 900px;
+    left: 879px;
+}
+
+.doubanglestb {
+    text-align: center;
+    font-family: 'crimsonpro';
+    color: var(--text);
+    position: absolute;
+    top: 1200px;
+    left: 223px;
+}
+    .doubanglestb td:nth-child(n) { padding-right: 30px; }
+
+.halfanglestb {
+    text-align: center;
+    color: var(--text);
+    font-family: 'crimsonpro';
+    position: absolute;
+    top: 1200px;
+    left: 778px;
+}
+    .halfanglestb td:nth-child(n) { padding-right: 30px; }
+
+.powerredutb {
+    text-align: center;
+    color: var(--text);
+    font-family: 'crimsonpro';
+    position: absolute;
+    top: 1540px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+    .powerredutb td:nth-child(n) { padding-right: 40px; }
+
+.protosumtb {
+    text-align: center;
+    font-family: 'crimsonpro';
+    color: var(--text);
+    position: absolute;
+    top: 1800px;
+    left: 317px;
+}
+
+.sumtoprotb {
+    text-align: center;
+    font-family: 'crimsonpro';
+    color: var(--text);
+    position: absolute;
+    top: 1800px;
+    left: 864px;
+}
+
+.page-end-spacer {
+    display: block;
+    height: 2200px; 
+}
+
+.container {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 25px;
+    height: 3.5px;
+    background-color: var(--menu);
+    margin: 4px 0;
+    transition: 0.4s;
+}
+
+.change .bar1 { transform: translate(0, 7.5px) rotate(-45deg); }
+.change .bar2 { opacity: 0; }
+.change .bar3 { transform: translate(0, -7.5px) rotate(45deg); }
+
+.dropdown { position: relative; }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background-color: var(--bg);
+    min-width: 160px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 12px 5px;
+    text-decoration: none;
+    color: var(--menu);
+    text-align: right;
+}
+
+.top-right {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  z-index: 1000;
+}
+
+.settings-btn {
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: var(--settings);
+  transition: 0.4s;
+  position: fixed;
+  right: 60px;
+  top: 14px;
+}
+
+.show { display: block; }
+</style>
+</head>
+
+<body class="dark">
+
+<div class="top-right">
+  <button class="settings-btn" onclick="toggleTheme()">&#9881;</button>
+  <div class="dropdown">
+    <div class="container" onclick="toggleMenu(this)">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+    </div>
+    <div id="myDropdown" class="dropdown-content">
+      <a href="actualhomepage.html">home</a>
+      <a href="flashy.html">flashcards</a>
+      <a href="ids.html">ids</a>
+      <a href="trig.html">practice</a>
+    </div>
+  </div>
+</div>
+
+<div id="page-wrapper">
+
+  <div class="title">TRIGONOMETRIC IDENTITIES</div>
+
+  <div class="subtext recip">RECIPROCAL IDENTITY</div>
+  <div class="subtext pythag">PYTHAGOREAN IDENTITY</div>
+  <div class="subtext cofunc">COFUNCTION IDENTITY</div>
+  <div class="subtext evenodd">EVEN-ODD IDENTITY</div>
+  <div class="subtext sumangles">SUM OF ANGLES IDENTITY</div>
+  <div class="subtext diffangles">DIFFERENCE OF ANGLES IDENTITY</div>
+  <div class="subtext doubangles">DOUBLE ANGLE IDENTITY</div>
+  <div class="subtext halfangles">HALF ANGLE IDENTITY</div>
+  <div class="subtext powerredu">POWER REDUCING IDENTITY</div>
+  <div class="subtext protosum">PRODUCT-TO-SUM IDENTITY</div>
+  <div class="subtext sumtopro">SUM-TO-PRODUCT IDENTITY</div>
+
+  <table class="reciptb">
+    <tr>
+      <td>sin &theta; = </td>
+      <td class="fraction"><span class="num">1</span><span class="denom">csc &theta;</span></td>
+      <td>cos &theta; = </td>
+      <td class="fraction"><span class="num">1</span><span class="denom">sec &theta;</span></td>
+      <td>tan &theta; = </td>
+      <td class="fraction"><span class="num">1</span><span class="denom">cot &theta;</span></td>
+    </tr>
+    <tr><td class="space">.</td></tr>
+    <tr>
+      <td>csc &theta; = </td>
+      <td class="fraction"><span class="num">1</span><span class="denom">sin &theta;</span></td>
+      <td>sec &theta; = </td>
+      <td class="fraction"><span class="num">1</span><span class="denom">cos &theta;</span></td>
+      <td>cot &theta; = </td>
+      <td class="fraction"><span class="num">1</span><span class="denom">tan &theta;</span></td>
+    </tr>
+  </table>
+
+  <table class="pythagtb">
+    <tr><td>sin<sup>2</sup> &theta; + cos<sup>2</sup> &theta; = 1</td></tr>
+    <tr><td class="space">.</td></tr>
+    <tr><td>1 + tan<sup>2</sup> &theta; = sec<sup>2</sup> &theta;</td></tr>
+    <tr><td class="space">.</td></tr>
+    <tr><td>1 + cot<sup>2</sup> &theta; = csc<sup>2</sup> &theta;</td></tr>
+  </table>
+
+  <table class="cofunctb">
+    <tr>
+      <td>sin(</td><td class="fraction"><span class="num">&#960;</span><span class="denom">2</span></td><td> - &theta;) = cos &theta;</td>
+      <td>cos(</td><td class="fraction"><span class="num">&#960;</span><span class="denom">2</span></td><td> - &theta;) = sin &theta;</td>
+      <td>tan(</td><td class="fraction"><span class="num">&#960;</span><span class="denom">2</span></td><td> - &theta;) = cot &theta;</td>
+    </tr>
+    <tr><td class="space">.</td></tr>
+    <tr>
+      <td>csc(</td><td class="fraction"><span class="num">&#960;</span><span class="denom">2</span></td><td> - &theta;) = sec &theta;</td>
+      <td>sec(</td><td class="fraction"><span class="num">&#960;</span><span class="denom">2</span></td><td> - &theta;) = csc &theta;</td>
+      <td>cot(</td><td class="fraction"><span class="num">&#960;</span><span class="denom">2</span></td><td> - &theta;) = tan &theta;</td>
+    </tr>
+  </table>
+
+  <table class="evenoddtb">
+    <tr>
+      <td>sin(-&theta;) = -sin&theta;</td>
+      <td>cos(-&theta;) = cos&theta;</td>
+      <td>tan(-&theta;) = -tan&theta;</td>
+    </tr>
+    <tr><td class="space">.</td></tr>
+    <tr>
+      <td>csc(-&theta;) = -csc&theta;</td>
+      <td>sec(-&theta;) = sec&theta;</td>
+      <td>cot(-&theta;) = -cot&theta;</td>
+    </tr>
+  </table>
+
+  <table class="sumanglestb">
+    <tr><td>sin(&alpha; + &beta;) = sin&alpha;cos&beta; + cos&alpha;sin&beta;</td></tr>
+    <tr><td class="space">.</td></tr>
+    <tr><td>cos(&alpha; + &beta;) = cos&alpha;cos&beta; - sin&alpha;sin&beta;</td></tr>
+    <tr><td class="space">.</td></tr>
+    <tr>
+      <td>tan(&alpha; + &beta;) = <span class="fraction"><span class="num">tan&alpha; + tan&beta;</span><span class="denom">1 - tan&alpha;tan&beta;</span></span></td>
+    </tr>
+  </table>
+
+  <table class="diffanglestb">
+    <tr><td>sin(&alpha; - &beta;) = sin&alpha;cos&beta; - cos&alpha;sin&beta;</td></tr>
+    <tr><td class="space">.</td></tr>
+    <tr><td>cos(&alpha; - &beta;) = cos&alpha;cos&beta; + sin&alpha;sin&beta;</td></tr>
+    <tr><td class="space">.</td></tr>
+    <tr>
+      <td>tan(&alpha; - &beta;) = <span class="fraction"><span class="num">tan&alpha; - tan&beta;</span><span class="denom">1 + tan&alpha;tan&beta;</span></span></td>
+    </tr>
+  </table>
+
+  <table class="doubanglestb">
+    <tr>
+      <td></td>
+      <td>cos2&theta; = cos<sup>2</sup>&theta; - sin<sup>2</sup>&theta;</td>
+    </tr>
+    <tr><td class="space">.</td></tr>
+    <tr>
+      <td>sin2&theta; = 2sin&theta;cos&theta;</td>
+      <td>cos2&theta; = 2cos<sup>2</sup>&theta; - 1</td>
+      <td>tan2&theta; = <span class="fraction"><span class="num">2tan&theta;</span><span class="denom">1 - tan<sup>2</sup>&theta;</span></span></td>
+    </tr>
+    <tr><td class="space">.</td></tr>
+    <tr>
+      <td></td>
+      <td>cos2&theta; = 1 - 2sin<sup>2</sup>&theta;</td>
+    </tr>
+  </table>
+
+  <table class="halfanglestb">
+    <tr>
+      <td></td>
+      <td></td>
+      <td>tan <span class="fraction"><span class="num">&theta;</span><span class="denom">2</span></span> = <span class="fraction"><span class="num">sin&theta;</span><span class="denom">1 + cos&theta;</span></span></td>
+    </tr>
+    <tr><td class="space">.</td></tr>
+    <tr>
+      <td>sin <span class="fraction"><span class="num">&theta;</span><span class="denom">2</span></span> = &pm; &radic; (<span class="fraction"><span class="num">1 - cos&theta;</span><span class="denom">2</span></span>)</td>
+      <td>cos <span class="fraction"><span class="num">&theta;</span><span class="denom">2</span></span> = &pm; &radic; (<span class="fraction"><span class="num">1 + cos&theta;</span><span class="denom">2</span></span>)</td>
+      <td>tan <span class="fraction"><span class="num">&theta;</span><span class="denom">2</span></span> = &pm; &radic; (<span class="fraction"><span class="num">1 - cos&theta;</span><span class="denom">1 + cos&theta;</span></span>)</td>
+    </tr>
+    <tr><td class="space">.</td></tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>tan <span class="fraction"><span class="num">&theta;</span><span class="denom">2</span></span> = <span class="fraction"><span class="num">1 - cos&theta;</span><span class="denom">sin&theta;</span></span></td>
+    </tr>
+  </table>
+
+  <table class="powerredutb">
+    <tr>
+      <td>sin<sup>2</sup>&theta; = <span class="fraction"><span class="num">1 - cos2&theta;</span><span class="denom">2</span></span></td>
+      <td>cos<sup>2</sup>&theta; = <span class="fraction"><span class="num">1 + cos2&theta;</span><span class="denom">2</span></span></td>
+      <td>tan<sup>2</sup>&theta; = <span class="fraction"><span class="num">1 - cos2&theta;</span><span class="denom">1 + cos2&theta;</span></span></td>
+    </tr>
+  </table>
+
+  <table class="protosumtb">
+    <tr><td>sinA &bull; sinB = <span class="fraction"><span class="num">1</span><span class="denom">2</span></span> [cos(A-B) - cos(A+B)]</td></tr>
+    <tr><td class="space">.</td></tr>
+    <tr><td>cosA &bull; cosB = <span class="fraction"><span class="num">1</span><span class="denom">2</span></span> [cos(A-B) + cos(A+B)]</td></tr>
+    <tr><td class="space">.</td></tr>
+    <tr><td>sinA &bull; cosB = <span class="fraction"><span class="num">1</span><span class="denom">2</span></span> [sin(A+B) + sin(A-B)]</td></tr>
+    <tr><td class="space">.</td></tr>
+    <tr><td>cosA &bull; sinB = <span class="fraction"><span class="num">1</span><span class="denom">2</span></span> [sin(A+B) - sin(A-B)]</td></tr>
+  </table>
+
+  <table class="sumtoprotb">
+    <tr><td>sinA + sinB = 2 &bull; sin[ <span class="fraction"><span class="num">A + B</span><span class="denom">2</span></span> ] &bull; cos[ <span class="fraction"><span class="num">A - B</span><span class="denom">2</span></span> ]</td></tr>
+    <tr><td class="space">.</td></tr>
+    <tr><td>cosA + cosB = 2 &bull; cos[ <span class="fraction"><span class="num">A + B</span><span class="denom">2</span></span> ] &bull; cos[ <span class="fraction"><span class="num">A - B</span><span class="denom">2</span></span> ]</td></tr>
+    <tr><td class="space">.</td></tr>
+    <tr><td>sinA - sinB = 2 &bull; cos[ <span class="fraction"><span class="num">A + B</span><span class="denom">2</span></span> ] &bull; sin[ <span class="fraction"><span class="num">A - B</span><span class="denom">2</span></span> ]</td></tr>
+    <tr><td class="space">.</td></tr>
+    <tr><td>cosA - cosB = -2 &bull; sin[ <span class="fraction"><span class="num">A + B</span><span class="denom">2</span></span> ] &bull; sin[ <span class="fraction"><span class="num">A - B</span><span class="denom">2</span></span> ]</td></tr>
+  </table>
+
+  <span class="page-end-spacer"></span>
+</div>
+
+<script>
+function toggleTheme() {
+  document.body.classList.toggle("light");
+  document.body.classList.toggle("dark");
+}
+
+function toggleMenu(x) {
+  x.classList.toggle("change");
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+  if (!event.target.closest('.dropdown')) {
+    document.getElementById("myDropdown").classList.remove("show");
+  }
+};
+
+const DESIGN_WIDTH = 1440;
+
+function scalePage() {
+  const wrapper = document.getElementById('page-wrapper');
+
+  const scale = window.innerWidth / DESIGN_WIDTH;
+
+  wrapper.style.transform = `scale(${scale})`;
+  wrapper.style.transformOrigin = 'top left';
+
+  const scaledHeight = wrapper.offsetHeight * scale;
+  document.body.style.height = scaledHeight + 'px';
+}
+
+// Run on load and every resize
+scalePage();
+window.addEventListener('resize', scalePage);
+</script>
+
+</body>
+</html>
