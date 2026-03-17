@@ -345,11 +345,11 @@ function flip() {
 
   /* Theme Toggle */
 function toggleTheme() {
-  document.body.classList.toggle("light");
-  document.body.classList.toggle("dark");
-  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+  document.documentElement.classList.toggle("light");
+  document.documentElement.classList.toggle("dark");
+  localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
 }
-/* Menu Icon Animation + Dropdown */
+
 function toggleMenu(x) {
   x.classList.toggle("change");
   document.getElementById("myDropdown").classList.toggle("show");
